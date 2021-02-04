@@ -39,7 +39,8 @@ function redirect($page = false)
 // buat fungsi untuk menghandle link active
 function activeLink($page)
 {
-  $endurl = $_GET['page'];
+  // $endurl = $_GET['page'];
+  $endurl = getPagename();
 
   $output = FALSE;
   if (!is_array($page)) {

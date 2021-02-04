@@ -21,11 +21,12 @@ require_once "app/koneksi.php";
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <table id="tableMenuItem" class="table table-bordered table-striped">
+        <table id="datatable" class="table table-bordered table-striped">
           <thead>
             <tr>
               <th class="text-center">No</th>
-              <th>Kode Ruangan</th>
+              <th>Kode</th>
+              <th>Nama Ruangan</th>
               <th>Penanggung Jawab</th>
               <th>Kontak</th>
               <th class="text-center">Aksi</th>
@@ -41,13 +42,14 @@ require_once "app/koneksi.php";
               <tr>
                 <td class="text-center"><?= $no; ?></td>
                 <td><?= $data['kode'] ?></td>
+                <td><?= $data['nama'] ?></td>
                 <td><?= $data['penanggung_jawab'] ?></td>
                 <td><?= $data['kontak'] ?></td>
                 <td class="text-center">
                   <a href="#" class="btn btn-success btn-xs" data-toggle="modal" data-target="#formModal" onclick='editForm(`<?= json_encode($data) ?>`)'>
                     <i class="fas fa-edit"></i>
                   </a>
-                  <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" onclick='deleteModal(`hapus_ruangan.php?id=<?= $data["id"] ?>`, `Ruangan: <?= $data["kode"] ?>`)'>
+                  <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" onclick='deleteModal(`hapus_ruangan.php?id=<?= $data["id"] ?>`, `Ruangan: [<?= $data["kode"] ?>] <?= $data["nama"] ?>`)'>
                     <i class="fas fa-trash"></i>
                   </a>
                 </td>
@@ -84,6 +86,11 @@ require_once "app/koneksi.php";
         <div class="form-group">
           <label for="kode">Kode Ruangan</label>
           <input type="text" name="kode" id="kode" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="nama">Nama Ruangan</label>
+          <input type="text" name="nama" id="nama" class="form-control">
         </div>
 
         <div class="form-group">
@@ -129,10 +136,26 @@ require_once "app/koneksi.php";
     // ubah dan tambahkan sesuai form kalian
     $('#id').val(data.id);
     $('#kode').val(data.kode);
+    $('#nama').val(data.nama);
     $('#penanggung_jawab').val(data.penanggung_jawab);
     $('#kontak').val(data.kontak);
 
   }
+
+  // datatable
+  $(function() {
+    $("#datatable").DataTable({
+      "responsive": true,
+      "lengthChange": false,
+      "pageLength": 5,
+      // "scrollY": 500,
+      // "scrollX": true,
+      "scrollCollapse": true,
+      "autoWidth": false,
+      "ordering": false,
+      "info": false
+    });
+  });
 </script>
 
 <?php require_once "layouts/footer.php" ?>

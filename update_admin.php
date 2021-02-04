@@ -64,12 +64,13 @@ if ($_FILES['foto']['tmp_name'] !== "") {
 // amankan password jika tidak diubah
 $password = $_POST['password'];
 if ($password === '') {
-  $hashed = $admin['password'];
+  // $hashed = $admin['password'];
+  $password = $admin['password'];
 } else {
-  $hashed = password_hash($password, PASSWORD_DEFAULT);
+  // $hashed = password_hash($password, PASSWORD_DEFAULT);
 }
 
-$query = "UPDATE admin SET username = '$_POST[username]', password = '$hashed', nama = '$_POST[nama]', alamat = '$_POST[alamat]', kontak = '$_POST[kontak]', foto = '$filename' WHERE id = '$_POST[id]'";
+$query = "UPDATE admin SET username = '$_POST[username]', password = '$password', nama = '$_POST[nama]', alamat = '$_POST[alamat]', kontak = '$_POST[kontak]', foto = '$filename' WHERE id = '$_POST[id]'";
 
 $hasil = $conn->query($query);
 

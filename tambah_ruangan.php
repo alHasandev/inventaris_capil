@@ -2,7 +2,7 @@
 
 require_once 'app/koneksi.php';
 
-$query = "INSERT INTO ruangan (kode, penanggung_jawab, kontak) VALUES ('$_POST[kode]', '$_POST[penanggung_jawab]', '$_POST[kontak]')";
+$query = "INSERT INTO ruangan (kode, nama, penanggung_jawab, kontak) VALUES ('$_POST[kode]', '$_POST[nama]', '$_POST[penanggung_jawab]', '$_POST[kontak]')";
 
 $hasil = $conn->query($query);
 

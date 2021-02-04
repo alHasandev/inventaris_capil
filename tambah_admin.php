@@ -59,9 +59,9 @@ if ($_FILES['foto']['temp_name'] !== "") {
 $password = $_POST['password'];
 
 // hash password
-$hashed = password_hash($password, PASSWORD_DEFAULT);
+// $hashed = password_hash($password, PASSWORD_DEFAULT);
 
-$query = "INSERT INTO admin (username, password, nama, alamat, kontak, foto) VALUES ('$_POST[username]', '$hashed', '$_POST[nama]', '$_POST[alamat]', '$_POST[kontak]', '$filename')";
+$query = "INSERT INTO admin (username, password, nama, alamat, kontak, foto) VALUES ('$_POST[username]', '$password', '$_POST[nama]', '$_POST[alamat]', '$_POST[kontak]', '$filename')";
 
 $hasil = $conn->query($query);
 

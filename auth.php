@@ -15,7 +15,7 @@ if ($users->num_rows > 0) {
   $user = $users->fetch_assoc();
 
   // cek password
-  if (password_verify($password, $user['password'])) {
+  if ($password === $user['password']) {
     $_SESSION['user'] = $user;
     header("Location: index.php");
   } else {

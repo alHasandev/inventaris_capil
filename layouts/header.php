@@ -23,6 +23,9 @@ require_once "./app/helpers.php"
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="./plugins/fontawesome-free/css/all.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="./plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="./plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="./plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
@@ -93,54 +96,54 @@ require_once "./app/helpers.php"
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-            <li class="nav-item has-treeview menu-open">
-              <a href="#" class="nav-link active">
+            <li class="nav-item">
+              <a href="index.php" class="nav-link  <?= activeLink('index') ? 'active' : '' ?>">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p class="">
                   Dashboard
-                  <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="index.php" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p class="">Dashboard v1</p>
-                  </a>
-                </li>
-              </ul>
             </li>
 
             <li class="nav-header">INVENTARIS</li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
+              <a href="barang_masuk.php" class="nav-link <?= activeLink('barang_masuk') ? 'active' : '' ?>">
+                <i class="nav-icon fas fa-truck-loading"></i>
                 <p class="">
                   Barang Masuk
                 </p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
+              <a href="pemakaian_aset.php" class="nav-link <?= activeLink('pemakaian_aset') ? 'active' : '' ?>">
+                <i class="nav-icon fas fa-hand-holding-water"></i>
                 <p class="">
-                  Pemeliharaan
+                  Pemakaian Aset
                 </p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
+              <a href="pemeliharaan.php" class="nav-link <?= activeLink('pemeliharaan') ? 'active' : '' ?>">
+                <i class="nav-icon fas fa-tools"></i>
                 <p class="">
-                  Pemakaian Aset
+                  Pemeliharaan
                 </p>
               </a>
             </li>
 
             <li class="nav-header">DATA MASTER</li>
             <li class="nav-item">
-              <a href="data_ruangan.php" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
+              <a href="data_jadwal.php" class="nav-link <?= activeLink('data_jadwal') ? 'active' : '' ?>">
+                <i class="nav-icon fas fa-calendar-check"></i>
+                <p class="">
+                  Jadwal
+                  <!-- <i class="fas fa-angle-left right"></i> -->
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="data_ruangan.php" class="nav-link <?= activeLink('data_ruangan') ? 'active' : '' ?>">
+                <i class="nav-icon fas fa-building"></i>
                 <p class="">
                   Ruangan
                   <!-- <i class="fas fa-angle-left right"></i> -->
@@ -148,16 +151,24 @@ require_once "./app/helpers.php"
               </a>
             </li>
             <li class="nav-item">
-              <a href="data_aset.php" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
+              <a href="data_kategori.php" class="nav-link <?= activeLink('data_kategori') ? 'active' : '' ?>">
+                <i class="nav-icon fas fa-dice-three"></i>
+                <p class="">
+                  Kategori
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="data_aset.php" class="nav-link <?= activeLink('data_aset') ? 'active' : '' ?>">
+                <i class="nav-icon fas fa-dice-d20"></i>
                 <p class="">
                   Aset
                 </p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
+              <a href="data_pemasok.php" class="nav-link <?= activeLink('data_pemasok') ? 'active' : '' ?>">
+                <i class="nav-icon fas fa-truck"></i>
                 <p class="">
                   Pemasok
                 </p>
@@ -208,7 +219,7 @@ require_once "./app/helpers.php"
 
             <li class="nav-header">APLIKASI</li>
             <li class="nav-item">
-              <a href="data_admin.php" class="nav-link">
+              <a href="data_admin.php" class="nav-link <?= activeLink('data_admin') ? 'active' : '' ?>">
                 <i class="nav-icon fas fa-users"></i>
                 <p class="">
                   Admin

@@ -21,14 +21,13 @@ require_once "app/koneksi.php";
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <table id="tableMenuItem" class="table table-bordered table-striped">
+        <table id="datatable" class="table table-bordered table-striped">
           <thead>
             <tr>
               <th class="text-center">No</th>
               <th>Nama Aset</th>
-              <th>Kategori</th>
-              <th>Unit</th>
-              <th>Ruangan</th>
+              <th class="text-center">Kategori</th>
+              <th class="text-center">Unit</th>
               <th>Keterangan</th>
               <th class="text-center">Aksi</th>
             </tr>
@@ -37,15 +36,16 @@ require_once "app/koneksi.php";
             <?php
 
             $no = 1;
-            $aset = $conn->query("SELECT aset.*, ruangan.kode as kode_ruangan FROM aset INNER JOIN ruangan ON aset.id_ruangan = ruangan.id");
+            $aset = $conn->query("SELECT aset.*, kategori.kode as kode_kategori FROM aset INNER JOIN kategori ON aset.id_kategori = kategori.id");
             while ($data = $aset->fetch_assoc()) :
             ?>
               <tr>
                 <td class="text-center"><?= $no; ?></td>
                 <td><?= $data['nama'] ?></td>
-                <td><?= $data['kategori'] ?></td>
-                <td><?= $data['unit'] ?></td>
-                <td><?= $data['kode_ruangan'] ?></td>
+                <td class="text-center text-uppercase">[<?= $data['kode_kategori'] ?>]</td>
+                <td class="text-center">
+                  <?= $data['unit_bebas'] ?> / <?= $data['unit_total'] ?>
+                </td>
                 <td><?= $data['keterangan'] ?></td>
                 <td class="text-center">
                   <a href="#" class="btn btn-success btn-xs" data-toggle="modal" data-target="#formModal" onclick='editForm(`<?= json_encode($data) ?>`)'>
@@ -85,37 +85,34 @@ require_once "app/koneksi.php";
 
         <!-- edit untuk mengubah isi form -->
         <input type="hidden" name="id" id="id" value="">
+
+        <div class="form-group">
+          <label for="id_kategori">Pilih Kategori</label>
+          <select name="id_kategori" id="id_kategori" class="form-control">
+            <?php
+
+            $kategori = $conn->query("SELECT * FROM kategori");
+            while ($data = $kategori->fetch_assoc()) :
+
+            ?>
+              <option value="<?= $data['id'] ?>">[<?= $data['kode'] ?>] <?= $data['nama'] ?></option>
+            <?php endwhile; ?>
+          </select>
+        </div>
+
         <div class="form-group">
           <label for="nama">Nama Aset</label>
           <input type="text" name="nama" id="nama" class="form-control">
         </div>
 
         <div class="form-group">
-          <label for="kategori">kategori</label>
-          <select name="kategori" id="kategori" class="form-control">
-            <option value="kt1">Kategori 1</option>
-            <option value="kt2">Kategori 2</option>
-            <option value="kt3">Kategori 3</option>
-          </select>
+          <label for="unit_terpakai">Unit Terpakai</label>
+          <input type="number" name="unit_terpakai" id="unit_terpakai" class="form-control" value="0" readonly>
         </div>
 
         <div class="form-group">
-          <label for="unit">Unit</label>
-          <input type="number" name="unit" id="unit" class="form-control">
-        </div>
-
-        <div class="form-group">
-          <label for="id_ruangan">Pilih Ruangan</label>
-          <select name="id_ruangan" id="id_ruangan" class="form-control">
-            <?php
-
-            $ruangan = $conn->query("SELECT * FROM ruangan");
-            while ($data = $ruangan->fetch_assoc()) :
-
-            ?>
-              <option value="<?= $data['id'] ?>"><?= $data['kode'] ?></option>
-            <?php endwhile; ?>
-          </select>
+          <label for="unit_total">Unit Total</label>
+          <input type="number" name="unit_total" id="unit_total" class="form-control" value="0" readonly>
         </div>
 
         <div class="form-group">
@@ -156,11 +153,26 @@ require_once "app/koneksi.php";
     $('#id').val(data.id);
     $('#nama').val(data.nama);
     $('#kategori').val(data.kategori);
-    $('#unit').val(data.unit);
+    $('#unit_terpakai').val(data.unit_terpakai);
+    $('#unit_bebas').val(data.unit_bebas);
     $('#id_ruangan').val(data.id_ruangan);
     $('#keterangan').val(data.keterangan);
-
   }
+
+  // datatable
+  $(function() {
+    $("#datatable").DataTable({
+      "responsive": true,
+      "lengthChange": false,
+      "pageLength": 5,
+      // "scrollY": 500,
+      // "scrollX": true,
+      "scrollCollapse": true,
+      "autoWidth": false,
+      "ordering": false,
+      "info": false
+    });
+  });
 </script>
 
 <?php require_once "layouts/footer.php" ?>

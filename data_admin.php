@@ -21,7 +21,7 @@ require_once "app/koneksi.php";
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <table id="tableMenuItem" class="table table-bordered table-striped">
+        <table id="datatable" class="table table-bordered table-striped">
           <thead>
             <tr>
               <th class="text-center">No</th>
@@ -155,6 +155,21 @@ require_once "app/koneksi.php";
     $('#kontak').val(data.kontak);
 
   }
+
+  // datatable
+  $(function() {
+    $("#datatable").DataTable({
+      "responsive": true,
+      "lengthChange": false,
+      "pageLength": 5,
+      // "scrollY": 500,
+      // "scrollX": true,
+      "scrollCollapse": true,
+      "autoWidth": false,
+      "ordering": false,
+      "info": false
+    });
+  });
 </script>
 
 <?php require_once "layouts/footer.php" ?>
